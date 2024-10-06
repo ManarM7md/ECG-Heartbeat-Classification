@@ -2,7 +2,7 @@
 
 ## Overview
 
-This repository contains a machine learning model designed to categorize ECG heartbeat data . The model utilizes data from an kaggle database to perform classification and aggregation, aiding organizations in identifying and evaluating core competencies through heartbeat analysis. Compare between uni and multi ML model performance.
+This repository contains a machine learning model designed to categorize ECG heartbeat data . The model utilizes data from an kaggle database to perform classification and aggregation, aiding organizations in identifying and evaluating core competencies through heartbeat analysis. Compare between uni and multi ML models performance.
 
 ## Project Structure
 
