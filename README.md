@@ -7,8 +7,7 @@ This repository contains a machine learning model designed to categorize ECG hea
 ## Project Structure
 
 - **`data/`**: Contains the heartbeat dataset. [Kaggle Dataset](https://www.kaggle.com/datasets/shayanfazeli/heartbeat)
-- **`Colab/`**: [Notebooks](https://colab.research.google.com/drive/17s0z6YDNwuuxgSPtBkYrbuca7ddmab0y?usp=sharing) that detail data processing, model training, and evaluation steps.
-- **`Kaggle/`** [Notebooks](https://www.kaggle.com/code/manarm7md/ecg-heartbeat-categorization-ml)
+- **`Kaggle/`** [Notebooks](https://www.kaggle.com/code/manarm7md/ecg-heartbeat-categorization-ml) that detail data processing, model training, and evaluation steps.
   
 ## Getting Started
 
