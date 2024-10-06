@@ -31,7 +31,7 @@ To run the code in this repository, ensure you have the following installed:
 The ECG Heartbeat Categorization model is deployed as a web application using Gradio. You can access the deployed app at the following link:
 
 [ECG Heartbeat Categorization Gradio App
-]((https://18cdbf335368c7a1e9.gradio.live/))
+](https://18cdbf335368c7a1e9.gradio.live/)
 
 ## Usage
 
