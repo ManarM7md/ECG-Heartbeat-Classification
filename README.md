@@ -2,13 +2,14 @@
 
 ## Overview
 
-This repository contains a machine learning model designed to categorize ECG (Electrocardiogram) heartbeat data . The model utilizes data from an kaggle database to perform classification and aggregation, aiding organizations in identifying and evaluating core competencies through heartbeat analysis.
+This repository contains a machine learning model designed to categorize ECG heartbeat data . The model utilizes data from an kaggle database to perform classification and aggregation, aiding organizations in identifying and evaluating core competencies through heartbeat analysis.
 
 ## Project Structure
 
 - **`data/`**: Contains the heartbeat dataset. [Kaggle Dataset](https://www.kaggle.com/datasets/shayanfazeli/heartbeat)
-- **`Colab/`**: [Jupyter notebooks](https://colab.research.google.com/drive/17s0z6YDNwuuxgSPtBkYrbuca7ddmab0y?usp=sharing) that detail data processing, model training, and evaluation steps.
-
+- **`Colab/`**: [Notebooks](https://colab.research.google.com/drive/17s0z6YDNwuuxgSPtBkYrbuca7ddmab0y?usp=sharing) that detail data processing, model training, and evaluation steps.
+- **`Kaggle/`** [Notebooks](https://www.kaggle.com/code/manarm7md/ecg-heartbeat-categorization-ml)
+  
 ## Getting Started
 
 ### Prerequisites
@@ -16,8 +17,9 @@ This repository contains a machine learning model designed to categorize ECG (El
 To run the code in this repository, ensure you have the following installed:
 
 - Python 3.x
-- pip install gradio
 - pip (Python package installer)
+- pip install gradio
+
 
 ### Installation
 
