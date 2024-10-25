@@ -34,18 +34,15 @@ class_mapping = {
 
 # Function to predict ECG class from file
 def predict_ecg_class_from_file(ecg_data):
-    if ecg_data.shape[0] == 187:
-        ecg_data = np.append(ecg_data, [0])
+    
+    if ecg_data.shape[0] != 187:
+        return "Error: The file should contain exactly 187 features."
 
-    if ecg_data.shape[0] != 188:
-        return "Error: The file should contain exactly 188 features."
-
-    ecg_data = ecg_data.reshape(1, -1)
-    ecg_data_pca = pca.transform(ecg_data)
-
-    binary_prediction = classifier.predict(ecg_data_pca)
+    binary_prediction = classifier.predict(ecg_data)
 
     if binary_prediction[0] != 0:
+        ecg_data = ecg_data.reshape(1, -1)
+        ecg_data_pca = pca.transform(ecg_data)
         sub_prediction = sub_classifier.predict(ecg_data_pca)
         return f"Predicted Class: {class_mapping[sub_prediction[0]]}"
     else:
