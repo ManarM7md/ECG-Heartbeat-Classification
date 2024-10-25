@@ -1,29 +1,27 @@
 import streamlit as st
-import pandas as pd
 import numpy as np
-import pickle
+import joblib
 import requests
 import io
 
-def load_pickle_from_url(url):
-    """Load a pickle file from a specified URL."""
+def load_model_from_url(url):
+    """Load a model file from a specified URL using joblib."""
     try:
         response = requests.get(url)
         response.raise_for_status()  # Check if the request was successful
         file_content = io.BytesIO(response.content)
-        return pickle.load(file_content)
+        return joblib.load(file_content)
     except requests.exceptions.RequestException as e:
         st.error(f"Failed to load the file from {url}: {e}")
         return None
-    except pickle.UnpicklingError as e:
-        st.error(f"Error unpickling the file: {e}")
+    except Exception as e:
+        st.error(f"Error loading the model: {e}")
         return None
 
-
 # Load the PCA and classifier models
-pca = load_pickle_from_url('https://github.com/ManarM7md/ECG-Heartbeat-Classification/raw/main/pca_transform.pkl')
-classifier = load_pickle_from_url('https://github.com/ManarM7md/ECG-Heartbeat-Classification/raw/main/Binary classifier_random_forest_model.pkl')
-sub_classifier = load_pickle_from_url('https://github.com/ManarM7md/ECG-Heartbeat-Classification/raw/main/sub-classifier_random_forest_model.pkl')
+pca = load_model_from_url('https://github.com/ManarM7md/ECG-Heartbeat-Classification/raw/main/pca_transform.pkl')
+classifier = load_model_from_url('https://github.com/ManarM7md/ECG-Heartbeat-Classification/raw/main/Binary classifier_random_forest_model.pkl')
+sub_classifier = load_model_from_url('https://github.com/ManarM7md/ECG-Heartbeat-Classification/raw/main/sub-classifier_random_forest_model.pkl')
 
 # Class mapping
 class_mapping = {
