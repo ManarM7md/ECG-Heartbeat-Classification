@@ -39,7 +39,8 @@ def predict_ecg_class_from_file(ecg_data):
         return "Error: The file should contain exactly 187 features."
         
     ecg_data = ecg_data.reshape(1, -1)
-    binary_prediction = classifier.predict(ecg_data)
+    ecg_data_pca = pca.transform(ecg_data)
+    binary_prediction = classifier.predict(ecg_data_pca)
 
     if binary_prediction[0] != 0:
         ecg_data_pca = pca.transform(ecg_data)
