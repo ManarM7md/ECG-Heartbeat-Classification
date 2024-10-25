@@ -1,5 +1,3 @@
 streamlit
 pandas 
 numpy
-scikit-learn
-zipfile
