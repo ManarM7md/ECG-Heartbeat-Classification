@@ -17,7 +17,7 @@ To run the code in this repository, ensure you have the following installed:
 
 - Python 3.x
 - pip (Python package installer)
-- pip install gradio
+- pip install streamlit 
 
 
 ### Installation
@@ -31,8 +31,8 @@ To run the code in this repository, ensure you have the following installed:
 
 The ECG Heartbeat Categorization model is deployed as a web application using Gradio. You can access the deployed app at the following link:
 
-[ECG Heartbeat Categorization Gradio App
-](https://18cdbf335368c7a1e9.gradio.live/)
+[ECG Heartbeat Categorization Streamlit App
+](https://ecg-heartbeat-classification-p92c55kesdmjg9zy6pqrw9.streamlit.app/)
 
 ## Usage
 
