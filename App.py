@@ -34,18 +34,15 @@ class_mapping = {
 
 # Function to predict ECG class from file
 def predict_ecg_class_from_file(ecg_data):
-    feature_count = ecg_data.shape[0]
+    if ecg_data.shape[0] == 187:
+        ecg_data = np.append(ecg_data, [0])
 
-    if feature_count < 187:
-        return "Error: The file should contain at least 187 features."
-    
+    if ecg_data.shape[0] != 188:
+        return "Error: The file should contain exactly 188 features."
 
-    # Reshape and transform the data
-    ecg_data = ecg_data[:187]
     ecg_data = ecg_data.reshape(1, -1)
     ecg_data_pca = pca.transform(ecg_data)
 
-    # Predict the class
     binary_prediction = classifier.predict(ecg_data_pca)
 
     if binary_prediction[0] != 0:
@@ -56,7 +53,7 @@ def predict_ecg_class_from_file(ecg_data):
 
 # Streamlit application
 st.title("ECG Signal Classifier")
-st.write("Upload a .txt file containing the features of the ECG signal to predict its class.")
+st.write("Upload a .txt file containing the 188 features of the ECG signal to predict its class.")
 
 # File uploader
 uploaded_file = st.file_uploader("Upload ECG .txt File", type=["txt"])
