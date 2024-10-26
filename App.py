@@ -38,10 +38,9 @@ class_mapping = {
 
 # Function to predict ECG class from file
 def predict_ecg_class_from_file(ecg_data):
-    if ecg_data.shape[0] != 188:
-        return "Error: The file should contain exactly 188 features."
+    if ecg_data.shape[1] != 188:  # Check columns, not rows
+        return "Error: The input should contain exactly 188 features."
 
-    ecg_data = ecg_data.reshape(1, -1)  # Reshape for PCA
     ecg_data = scaler_1.transform(ecg_data)
     ecg_data_pca = pca_1.transform(ecg_data)
     binary_prediction = classifier.predict(ecg_data_pca)
@@ -70,25 +69,16 @@ if uploaded_file is not None:
         st.write("Data shape:", ecg_data.shape)
         st.write("First few rows of the data:", ecg_data.head())
 
-        # Check if the uploaded data has 188 features (excluding the target column)
+        # Ensure the data contains 188 features
         if ecg_data.shape[1] != 188:
-            st.error("The uploaded file must contain exactly 188 features (including target if present).")
+            st.error("The uploaded file must contain exactly 188 features (including the target column if present).")
         else:
-            # Check if the last column is the target
-            if 'Target' in ecg_data.columns:
-                ecg_data_array = ecg_data.iloc[:, :-1].values  # Exclude the target column
-            else:
-                ecg_data_array = ecg_data.values  # Use all columns if no target column
+            # Extract features (excluding the target if it's present)
+            ecg_data_array = ecg_data.values if 'Target' not in ecg_data.columns else ecg_data.iloc[:, :-1].values
 
-            # Ensure that the data shape matches the expected input for prediction
-            if ecg_data_array.shape[1] != 188:
-                st.error("The data must contain exactly 188 features.")
-            else:
-                # Predict the class
-                prediction = predict_ecg_class_from_file(ecg_data_array)
-                st.success(prediction)
+            # Predict the class
+            prediction = predict_ecg_class_from_file(ecg_data_array)
+            st.success(prediction)
 
     except Exception as e:
         st.error(f"Error processing file: {e}")
-
-
