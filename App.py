@@ -45,7 +45,7 @@ def predict_ecg_class_from_file(ecg_data):
 
     if binary_prediction[0] != 0:
         ecg_data_pca = scaler.transform(ecg_data_pca)
-        ecg_data_pca = pca_2.transform(ecg_data)
+        ecg_data_pca = pca_2.transform(ecg_data_pca)
         sub_prediction = sub_classifier.predict(ecg_data_pca)
         return f"Predicted Class: {class_mapping[sub_prediction[0]]}"
     else:
