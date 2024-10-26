@@ -53,25 +53,26 @@ def predict_ecg_class_from_file(ecg_data):
 
 # Streamlit application
 st.title("ECG Signal Classifier")
-st.write("Upload a .txt file containing the 188 features of the ECG signal to predict its class.")
+st.write("Upload a .csv file containing the 188 features of the ECG signal to predict its class.")
 
 # File uploader
-uploaded_file = st.file_uploader("Upload ECG .CSV File", type=["csv"])
+uploaded_file = st.file_uploader("Upload ECG .csv File", type=["csv"])
 
 if uploaded_file is not None:
     try:
         # Load the ECG data from the uploaded file
-        ecg_data = np.loadtxt(uploaded_file, delimiter=',')  # Specify the delimiter if it's a CSV
+        ecg_data = pd.read_csv(uploaded_file)
 
-        # Check if the uploaded data has 188 features
+        # Check if the uploaded data has 188 columns
         if ecg_data.shape[1] != 188:
             st.error("The uploaded file must contain exactly 188 features.")
         else:
+            # Convert DataFrame to numpy array
+            ecg_data_array = ecg_data.values[:, :-1]  # Exclude the target column if present
+            
             # Predict the class
-            prediction = predict_ecg_class_from_file(ecg_data)
+            prediction = predict_ecg_class_from_file(ecg_data_array)
             st.success(prediction)
 
     except Exception as e:
         st.error(f"Error processing file: {e}")
-
-# Add additional information or functionality as needed
