@@ -71,7 +71,7 @@ if uploaded_file is not None:
             st.error("The uploaded file must contain exactly 188 features (including the target column if present).")
         else :
             # Extract features (excluding the target if it's present)
-            ecg_data_array = ecg_data.values if 'Target' not in ecg_data.columns else ecg_data.iloc[:, :-1].values
+            ecg_data_array = ecg_data.iloc[:, :].values if 'Target' not in ecg_data.columns else ecg_data.iloc[:, :-1].values
 
             # Predict the class
             prediction = predict_ecg_class_from_file(ecg_data_array)
