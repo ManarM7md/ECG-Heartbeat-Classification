@@ -21,8 +21,8 @@ def load_model_from_url(url):
 # Load the PCA and classifier models
 pca_1 = load_model_from_url('https://github.com/ManarM7md/ECG-Heartbeat-Classification/raw/main/pca_1_transform.pkl')
 pca_2 = load_model_from_url('https://github.com/ManarM7md/ECG-Heartbeat-Classification/raw/main/pca_2_transform.pkl')
-scaler_1 = load_model_from_url('https://github.com/ManarM7md/Waze-Project/raw/main/scaler_1.pkl')
-scaler_2 = load_model_from_url('https://github.com/ManarM7md/Waze-Project/raw/main/scaler_2.pkl')
+scaler_1 = load_model_from_url('https://github.com/ManarM7md/ECG-Heartbeat-Classification/raw/main/scaler_1.pkl')
+scaler_2 = load_model_from_url('https://github.com/ManarM7md/ECG-Heartbeat-Classification/raw/main/scaler_2.pkl')
 classifier = load_model_from_url('https://github.com/ManarM7md/ECG-Heartbeat-Classification/raw/main/Binary classifier_random_forest_model.pkl')
 sub_classifier = load_model_from_url('https://github.com/ManarM7md/ECG-Heartbeat-Classification/raw/main/sub-classifier_random_forest_model.pkl')
 
