@@ -22,8 +22,7 @@ def load_model_from_url(url):
 # Load the PCA and classifier models
 pca_1 = load_model_from_url('https://github.com/ManarM7md/ECG-Heartbeat-Classification/raw/main/pca_1_transform.pkl')
 pca_2 = load_model_from_url('https://github.com/ManarM7md/ECG-Heartbeat-Classification/raw/main/pca_2_transform.pkl')
-scaler_1 = load_model_from_url('https://github.com/ManarM7md/ECG-Heartbeat-Classification/raw/main/scaler_1.pkl')
-scaler_2 = load_model_from_url('https://github.com/ManarM7md/ECG-Heartbeat-Classification/raw/main/scaler_2.pkl')
+scaler = load_model_from_url('https://github.com/ManarM7md/ECG-Heartbeat-Classification/raw/main/scaler.pkl')
 classifier = load_model_from_url('https://github.com/ManarM7md/ECG-Heartbeat-Classification/raw/main/Binary classifier_random_forest_model.pkl')
 sub_classifier = load_model_from_url('https://github.com/ManarM7md/ECG-Heartbeat-Classification/raw/main/sub-classifier_random_forest_model.pkl')
 
@@ -41,12 +40,11 @@ def predict_ecg_class_from_file(ecg_data):
     if ecg_data.shape[1] != 188:  # Check columns, not rows
         return "Error: The input should contain exactly 188 features."
 
-    ecg_data = scaler_1.transform(ecg_data)
     ecg_data_pca = pca_1.transform(ecg_data)
     binary_prediction = classifier.predict(ecg_data_pca)
 
     if binary_prediction[0] != 0:
-        ecg_data_pca = scaler_2.transform(ecg_data_pca)
+        ecg_data_pca = scaler.transform(ecg_data_pca)
         ecg_data_pca = pca_2.transform(ecg_data)
         sub_prediction = sub_classifier.predict(ecg_data_pca)
         return f"Predicted Class: {class_mapping[sub_prediction[0]]}"
