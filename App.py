@@ -39,7 +39,7 @@ class_mapping = {
 def predict_ecg_class_from_file(ecg_data):
     if ecg_data.shape[1] < 187:  # Check columns, not rows
         return "Error: The input should contain exactly 188 features."
-    else
+    else:
         ecg_data_pca = pca_1.transform(ecg_data)
         binary_prediction = classifier.predict(ecg_data_pca)
     
