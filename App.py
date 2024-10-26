@@ -3,6 +3,7 @@ import numpy as np
 import joblib
 import requests
 import io
+import pandas as pd
 
 def load_model_from_url(url):
     """Load a model file from a specified URL using joblib."""
@@ -19,7 +20,10 @@ def load_model_from_url(url):
         return None
 
 # Load the PCA and classifier models
-pca = load_model_from_url('https://github.com/ManarM7md/ECG-Heartbeat-Classification/raw/main/pca_transform.pkl')
+pca_1 = load_model_from_url('https://github.com/ManarM7md/ECG-Heartbeat-Classification/raw/main/pca_1_transform.pkl')
+pca_2 = load_model_from_url('https://github.com/ManarM7md/ECG-Heartbeat-Classification/raw/main/pca_2_transform.pkl')
+scaler = load_pickle_from_url('https://github.com/ManarM7md/Waze-Project/raw/main/scaler_1.pkl')
+scaler = load_pickle_from_url('https://github.com/ManarM7md/Waze-Project/raw/main/scaler_2.pkl')
 classifier = load_model_from_url('https://github.com/ManarM7md/ECG-Heartbeat-Classification/raw/main/Binary classifier_random_forest_model.pkl')
 sub_classifier = load_model_from_url('https://github.com/ManarM7md/ECG-Heartbeat-Classification/raw/main/sub-classifier_random_forest_model.pkl')
 
@@ -34,16 +38,15 @@ class_mapping = {
 
 # Function to predict ECG class from file
 def predict_ecg_class_from_file(ecg_data):
-    
-    if ecg_data.shape[0] != 187:
-        return "Error: The file should contain exactly 187 features."
-        
-    ecg_data = ecg_data.reshape(1, -1)
-    ecg_data_pca = pca.transform(ecg_data)
+    if ecg_data.shape[0] != 188:
+        return "Error: The file should contain exactly 188 features."
+
+    ecg_data = ecg_data.reshape(1, -1)  # Reshape for PCA
+    ecg_data_pca = pca_1.transform(ecg_data)
     binary_prediction = classifier.predict(ecg_data_pca)
 
     if binary_prediction[0] != 0:
-        ecg_data_pca = pca.transform(ecg_data)
+        ecg_data_pca = pca_2.transform(ecg_data)
         sub_prediction = sub_classifier.predict(ecg_data_pca)
         return f"Predicted Class: {class_mapping[sub_prediction[0]]}"
     else:
@@ -54,16 +57,22 @@ st.title("ECG Signal Classifier")
 st.write("Upload a .txt file containing the 188 features of the ECG signal to predict its class.")
 
 # File uploader
-uploaded_file = st.file_uploader("Upload ECG .txt File", type=["txt"])
+uploaded_file = st.file_uploader("Upload ECG .CSV File", type=["CSV"])
 
 if uploaded_file is not None:
     try:
         # Load the ECG data from the uploaded file
         ecg_data = np.loadtxt(uploaded_file)
 
-        # Predict the class
-        prediction = predict_ecg_class_from_file(ecg_data)
-        st.success(prediction)
+        # Check if the uploaded data has 188 columns
+        if ecg_data.shape[1] != 188:
+            st.error("The uploaded file must contain exactly 188 features.")
+        else:
+            # Predict the class
+            prediction = predict_ecg_class_from_file(ecg_data)
+            st.success(prediction)
 
     except Exception as e:
         st.error(f"Error processing file: {e}")
+
+# Add additional information or functionality as needed
