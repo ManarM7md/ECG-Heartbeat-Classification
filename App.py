@@ -37,7 +37,7 @@ class_mapping = {
 
 # Function to predict ECG class from file
 def predict_ecg_class_from_file(ecg_data):
-    if ecg_data.shape[1] != 188:  # Check columns, not rows
+    if ecg_data.shape[1] < 187:  # Check columns, not rows
         return "Error: The input should contain exactly 188 features."
 
     ecg_data_pca = pca_1.transform(ecg_data)
@@ -53,7 +53,7 @@ def predict_ecg_class_from_file(ecg_data):
 
 # Streamlit application
 st.title("ECG Signal Classifier")
-st.write("Upload a .csv file containing the 188 features of the ECG signal to predict its class.")
+st.write("Upload a .csv file containing the 187 features of the ECG signal to predict its class.")
 
 # File uploader
 uploaded_file = st.file_uploader("Upload ECG .csv File", type=["csv"])
@@ -67,7 +67,7 @@ if uploaded_file is not None:
         st.write("First few rows of the data:", ecg_data.head())
 
         # Ensure the data contains 188 features
-        if ecg_data.shape[1] != 188:
+        if ecg_data.shape[1] < 187:
             st.error("The uploaded file must contain exactly 188 features (including the target column if present).")
         else:
             # Extract features (excluding the target if it's present)
