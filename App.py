@@ -64,7 +64,6 @@ if uploaded_file is not None:
         ecg_data = pd.read_csv(uploaded_file)
 
         # Output the shape and first few rows for debugging
-        st.write("Data shape:", ecg_data.shape)
         st.write("First few rows of the data:", ecg_data.head())
 
         # Ensure the data contains 188 features
