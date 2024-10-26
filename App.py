@@ -70,17 +70,25 @@ if uploaded_file is not None:
         st.write("Data shape:", ecg_data.shape)
         st.write("First few rows of the data:", ecg_data.head())
 
-        # Check if the uploaded data has 188 columns
+        # Check if the uploaded data has 188 features (excluding the target column)
         if ecg_data.shape[1] != 188:
-            st.error("The uploaded file must contain exactly 188 features.")
+            st.error("The uploaded file must contain exactly 188 features (including target if present).")
         else:
-            # Convert DataFrame to numpy array
-            ecg_data_array = ecg_data.values  # Take all columns
-            
-            # Predict the class
-            prediction = predict_ecg_class_from_file(ecg_data_array)
-            st.success(prediction)
+            # Check if the last column is the target
+            if 'Target' in ecg_data.columns:
+                ecg_data_array = ecg_data.iloc[:, :-1].values  # Exclude the target column
+            else:
+                ecg_data_array = ecg_data.values  # Use all columns if no target column
+
+            # Ensure that the data shape matches the expected input for prediction
+            if ecg_data_array.shape[1] != 188:
+                st.error("The data must contain exactly 188 features.")
+            else:
+                # Predict the class
+                prediction = predict_ecg_class_from_file(ecg_data_array)
+                st.success(prediction)
 
     except Exception as e:
         st.error(f"Error processing file: {e}")
+
 
