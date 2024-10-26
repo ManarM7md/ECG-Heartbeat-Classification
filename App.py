@@ -66,12 +66,16 @@ if uploaded_file is not None:
         # Load the ECG data from the uploaded file
         ecg_data = pd.read_csv(uploaded_file)
 
+        # Output the shape and first few rows for debugging
+        st.write("Data shape:", ecg_data.shape)
+        st.write("First few rows of the data:", ecg_data.head())
+
         # Check if the uploaded data has 188 columns
         if ecg_data.shape[1] != 188:
             st.error("The uploaded file must contain exactly 188 features.")
         else:
             # Convert DataFrame to numpy array
-            ecg_data_array = ecg_data.values[:, :-1]  # Exclude the target column if present
+            ecg_data_array = ecg_data.values  # Take all columns
             
             # Predict the class
             prediction = predict_ecg_class_from_file(ecg_data_array)
@@ -79,3 +83,4 @@ if uploaded_file is not None:
 
     except Exception as e:
         st.error(f"Error processing file: {e}")
+
