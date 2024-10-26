@@ -3,7 +3,6 @@ import numpy as np
 import joblib
 import requests
 import io
-import pandas as pd
 
 def load_model_from_url(url):
     """Load a model file from a specified URL using joblib."""
@@ -22,8 +21,8 @@ def load_model_from_url(url):
 # Load the PCA and classifier models
 pca_1 = load_model_from_url('https://github.com/ManarM7md/ECG-Heartbeat-Classification/raw/main/pca_1_transform.pkl')
 pca_2 = load_model_from_url('https://github.com/ManarM7md/ECG-Heartbeat-Classification/raw/main/pca_2_transform.pkl')
-scaler = load_pickle_from_url('https://github.com/ManarM7md/Waze-Project/raw/main/scaler_1.pkl')
-scaler = load_pickle_from_url('https://github.com/ManarM7md/Waze-Project/raw/main/scaler_2.pkl')
+scaler_1 = load_model_from_url('https://github.com/ManarM7md/Waze-Project/raw/main/scaler_1.pkl')
+scaler_2 = load_model_from_url('https://github.com/ManarM7md/Waze-Project/raw/main/scaler_2.pkl')
 classifier = load_model_from_url('https://github.com/ManarM7md/ECG-Heartbeat-Classification/raw/main/Binary classifier_random_forest_model.pkl')
 sub_classifier = load_model_from_url('https://github.com/ManarM7md/ECG-Heartbeat-Classification/raw/main/sub-classifier_random_forest_model.pkl')
 
@@ -57,14 +56,14 @@ st.title("ECG Signal Classifier")
 st.write("Upload a .txt file containing the 188 features of the ECG signal to predict its class.")
 
 # File uploader
-uploaded_file = st.file_uploader("Upload ECG .CSV File", type=["CSV"])
+uploaded_file = st.file_uploader("Upload ECG .CSV File", type=["csv"])
 
 if uploaded_file is not None:
     try:
         # Load the ECG data from the uploaded file
-        ecg_data = np.loadtxt(uploaded_file)
+        ecg_data = np.loadtxt(uploaded_file, delimiter=',')  # Specify the delimiter if it's a CSV
 
-        # Check if the uploaded data has 188 columns
+        # Check if the uploaded data has 188 features
         if ecg_data.shape[1] != 188:
             st.error("The uploaded file must contain exactly 188 features.")
         else:
