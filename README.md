@@ -27,13 +27,6 @@ To run the code in this repository, ensure you have the following installed:
    git clone https://github.com/ManarM7md/ECG-Heartbeat-Classification.git
    cd ECG-Heartbeat-Classification
 
-### Deployment
-
-The ECG Heartbeat Categorization model is deployed as a web application using Streamlit. You can access the deployed app at the following link:
-
-[ECG Heartbeat Categorization Streamlit App
-](https://ecg-heartbeat-classification-p92c55kesdmjg9zy6pqrw9.streamlit.app/)
-
 ## Usage
 
 After deploying the application, follow the on-screen instructions to upload ECG data and obtain categorizations based on the trained models.
